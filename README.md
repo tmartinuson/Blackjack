@@ -1,11 +1,44 @@
-# My Personal Project
+# Blackjack Casino Card Game
 
-## A subtitle
+## A simple game of Blackjack versus the dealer.
 
-A *bulleted* list:
-- item 1
-- item 2
-- item 3
+## Summary
+This project is a simple game of Blackjack playing against the dealer. The rules of this program will follow the 
+standard rules of Blackjack in which the player must score a higher dealt hand than the dealer to win the game. 
+There is plenty opportunity to customize the settings and add different variables to this game but for now I'd like to
+start off simple and build up.
 
-An example of text with **bold** and *italic* fonts.  Note that the IntelliJ markdown previewer doesn't seem to render 
-the bold and italic fonts correctly but they will appear correctly on GitHub.
+Ideas for the layout of classes and methods
+-  RunGame main();
+    - Dealer
+        - Hand
+    - Player
+        - Hand
+        - Bet
+        - Cash/Bank
+    - Deal
+        - Deck
+            - Shuffle();
+            - var Amount of cards/decks
+            - Cards
+                - var Face;
+                - Value();
+        - Who won
+        - Rules for winning
+    
+
+ 
+
+## People that will use it:
+- People who like to play card games for fun.
+- People who are bored at work and are searching through the *games* folder in Windows.
+- People who enjoy the thrill of victory and risking it all over some pieces of virtual paper.
+- People who want to sharpen their addition skills.
+
+## Why this project?
+This project interests me because I want to program a video game to add to my project resume, and I 
+also enjoy playing Blackjack with friends in games like GTA V online. It's also something that seems pretty attainable 
+given my current assessment of my skills and where I'm at as a programmer of Java. I'd like to use this project to
+represent my interest in working in the video game sector as a software developer and I feel it would be great to have 
+this on my resume. I also want to send this to a couple of my friends after I complete this course so that they can play 
+Blackjack without having to load up GTA V and see something that I created!
