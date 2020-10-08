@@ -42,3 +42,9 @@ given my current assessment of my skills and where I'm at as a programmer of Jav
 represent my interest in working in the video game sector as a software developer and I feel it would be great to have 
 this on my resume. I also want to send this to a couple of my friends after I complete this course so that they can play 
 Blackjack without having to load up GTA V and see something that I created!
+
+## User Stories
+- As a user, I want to be able to play a solo game of blackjack and win/lose.
+- As a user, I want to be able to bet certain amounts.
+- As a user, I want to be able to view the cards in my possession.
+- As a user, I want to be able to play a few rounds and quit the game whenever I want.
