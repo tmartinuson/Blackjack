@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CardTest {
+
     @Test
     public void swapAceValueTest() {
         Card testAce = new Card("A");
@@ -12,6 +13,7 @@ public class CardTest {
         testAce.swapAceValue();
         assertEquals(testAce.getCardValue(), 1);
     }
+
     @Test
     public void toStringTest() {
         Card test1 = new Card("J");

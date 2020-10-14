@@ -34,7 +34,7 @@ public class DealerTest {
             test.hit();
         }
         handValue = test.handTotal();
-        //Reset to 2 new cards
+        //Reset to 2 new random cards
         test.deal();
         assertTrue((test.handTotal() < handValue) && !(test.toString().equals("[J] [5] ")));
     }

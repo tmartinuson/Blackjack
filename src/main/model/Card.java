@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
+// Represents a Card that has a card face, the value of the card and can only be from a face from the standard deck.
 public class Card {
-    private String cardFace;
-    private int cardValue;
-    private static final ArrayList<String> deck = new ArrayList<>(
-            Arrays.asList("A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"));
+    private String cardFace;                            // face of the card
+    private int cardValue;                              // value of the card [1,11]
+    private static final ArrayList<String> deck =       // a constant list of valid cards from a standard deck
+            new ArrayList<>(Arrays.asList("A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"));
 
     //This creates a random card instance
     public Card() {

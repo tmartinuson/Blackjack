@@ -2,16 +2,20 @@ package model;
 
 import java.util.ArrayList;
 
+// Represents the dealer with the methods required to play a game of Blackjack
 public class Dealer {
-    protected ArrayList<Card> hand;
-    protected boolean bust;
+    protected ArrayList<Card> hand;         // stores the cards in the dealer's possession
+    protected boolean bust;                 // conditional if the dealer has busted or not
 
+    //EFFECTS: creates a new empty hand for the dealer,
+    // sets the dealers bust to false,
+    // deals the dealer 2 new cards,
+    // and swaps the ace out in case of 2 aces appearing in a hand.
     public Dealer() {
         hand = new ArrayList<>();
         bust = false;
-        //Might not need this initially until the player makes a bet
         deal();
-        //That one circumstance that the dealer gets 2 aces on the draw
+        //That one odd circumstance that the dealer gets 2 aces on the draw
         if (hasAce()) {
             swapAce();
         }
@@ -75,6 +79,7 @@ public class Dealer {
         return bust;
     }
 
+    /**Could merge this into swapAce() later to save time on O(n). (2 searches for the same answer essentially) **/
     //EFFECTS: checks to see if the dealer's hand has an ace in it
     public boolean hasAce() {
         for (Card i: hand) {
@@ -96,7 +101,7 @@ public class Dealer {
         }
     }
 
-    //Tester method for swapAceTest()
+    /** Tester method for swapAceTest() **/
     //MODIFIES: this
     //EFFECTS: adds a new card from the given string to the dealer's hand.
     public void addGivenCard(String face) {

@@ -8,7 +8,44 @@ standard rules of Blackjack in which the player must score a higher dealt hand t
 There is plenty opportunity to customize the settings and add different variables to this game but for now I'd like to
 start off simple and build up.
 
-Ideas for the layout of classes and methods
+## Domain Analysis
+- Blackjack
+    - runBlackjack();
+    - displayTable();
+    - checkBlackjack();
+    - playTurn();
+    - endOfTurn();
+    - playDealer();
+    - checkWhoWon();
+    - reset();
+    - placeBets();
+    - Requires Card, Dealer and Player
+- Card
+    - getCardValue();
+    - toString();
+    - swapAceValue();
+    - findValue();
+    - drawCard();
+- Dealer
+    - hit();
+    - deal();
+    - handTotal();
+    - dealerHand();
+    - toString();
+    - setBust();
+    - getBust();
+    - hasAce();
+    - swapAce();
+    - addGivenCard();
+- Player extends Dealer
+    - subtractCash();
+    - addCash();
+    - getCash();
+    - setCash();
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+****************OLD******************
+Ideas for classes, methods and variables?
 -  RunGame main();
     - Dealer
         - Hand
@@ -25,8 +62,8 @@ Ideas for the layout of classes and methods
                 - Value();
         - Who won
         - Rules for winning
-    
-
+*************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  
 
 ## People that will use it:
