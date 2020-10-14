@@ -92,7 +92,7 @@ public class Dealer {
     //the ace value in the hand from the default 11 to 1;
     public void swapAce() {
         for (Card i: hand) {
-            if (handTotal() > 21 && i.getCardValue() == 11) {
+            if (this.handTotal() > 21 && i.getCardValue() == 11) {
                 i.swapAceValue();
             }
         }
