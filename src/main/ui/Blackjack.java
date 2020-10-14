@@ -145,7 +145,7 @@ public class Blackjack {
     //MODIFIES: this
     //EFFECTS: resets the game for the next round by placing bets
     // and dealing new cards and clearing previous conditions.
-    public void reset() {
+    private void reset() {
         placeBets();
         player.deal();
         dealer.deal();
@@ -159,7 +159,7 @@ public class Blackjack {
     // User must also have cash in their bank in order to play.
     //MODIFIES: this
     //EFFECTS: asks the user what they would like to bet and places that bet.
-    public void placeBets() {
+    private void placeBets() {
         System.out.println("Place your bet!");
         playerBet = keyboard.nextInt();
         //Fix this

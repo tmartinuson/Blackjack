@@ -86,4 +86,9 @@ public class DealerTest {
         test.addGivenCard("3");
         assertEquals(test.toString(), "[J] [5] [3] ");
     }
+
+    @Test
+    public void doubleAceDraw() {
+        test = new Dealer("A","A");
+    }
 }
