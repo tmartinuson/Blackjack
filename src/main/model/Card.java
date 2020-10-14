@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-// Represents a Card that has a card face, the value of the card and can only be from a face from the standard deck.
+// Represents a Card that has a card face, the value of the card and can only be from a face from the standard DECK.
 public class Card {
     private String cardFace;                            // face of the card
     private int cardValue;                              // value of the card [1,11]
-    private static final ArrayList<String> deck =       // a constant list of valid cards from a standard deck
+    private static final ArrayList<String> DECK =       // a constant list of valid cards from a standard DECK
             new ArrayList<>(Arrays.asList("A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"));
 
     //This creates a random card instance
@@ -39,7 +39,7 @@ public class Card {
         cardValue = 1;
     }
 
-    //REQUIRES: face to contain a value in the standard deck [A,2,3,4,5,6,7,8,9,10,J,Q,K]
+    //REQUIRES: face to contain a value in the standard DECK [A,2,3,4,5,6,7,8,9,10,J,Q,K]
     //EFFECTS: converts the given face card to an representable int value.
     private static int findValue(String face) {
         int answer;
@@ -59,10 +59,10 @@ public class Card {
     }
 
     //MODIFIES: this
-    //EFFECTS: draws a random card face from the deck and returns the face as a String
+    //EFFECTS: draws a random card face from the DECK and returns the face as a String
     private static String drawCard() {
         Random rand = new Random();
 
-        return deck.get(rand.nextInt(deck.size()));
+        return DECK.get(rand.nextInt(DECK.size()));
     }
 }
