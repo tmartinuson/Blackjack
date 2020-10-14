@@ -7,49 +7,49 @@ import java.util.Scanner;
 public class RunGame {
     private static Scanner keyboard = new Scanner(System.in);
     private static String response = "";
+    private static int playerBet = 0;
     private static Player player = new Player();
     private static Dealer dealer = new Dealer();
 
     public static void main(String[] args) {
         System.out.println("Welcome to blackjack! Type answers: \"hit\", \"stay\".");
         while (true) {
-            player.deal();
-            dealer.deal();
-            displayTable(false);
-            if (checkBlackjack()) {
-                System.out.println("Play again? y/n");
-                response = keyboard.nextLine();
-                if (response.equalsIgnoreCase("y")) {
-                    continue;
-                } else {
-                    break;
-                }
+            reset();
+            if (!checkBlackjack()) {
+                playGame();
             }
-            playGame();
+            System.out.println("Play again? y/n");
+            response = keyboard.nextLine();
+            if (response.equalsIgnoreCase("n")) {
+                break;
+            }
         }
     }
 
     private static void displayTable(boolean dealerTurn) {
         if (dealerTurn) {
             System.out.println(
-                    "~~~~~~~~~~~~~~~\n"
-                            + "   " + dealer
+                    "\n~~~~~~~~~~~~~~~\n"
+                            + "   " + dealer + dealer.handTotal()
                             + "\n\n   "
-                            + player
-                            + "\n~~~~~~~~~~~~~~~");
+                            + player + player.handTotal()
+                            + "\n~~~~~~~~~~~~~~~\n"
+                            + "Bank: " + player.getCash() + "      Bet: " + playerBet);
         } else {
             System.out.println(
-                    "~~~~~~~~~~~~~~~\n"
+                    "\n~~~~~~~~~~~~~~~\n"
                             + "   " + dealer.dealerHand()
                             + "\n\n   "
-                            + player
-                            + "\n~~~~~~~~~~~~~~~");
+                            + player + player.handTotal()
+                            + "\n~~~~~~~~~~~~~~~\n"
+                            + "Bank: " + player.getCash() + "      Bet: " + playerBet);
         }
     }
 
     private static boolean checkBlackjack() {
         if (player.handTotal() == 21) {
-            System.out.println("Blackjack! You've won!");
+            playerBet *= (1.5);
+            System.out.println("Blackjack! You've won " + playerBet);
             return true;
         } else {
             return false;
@@ -62,15 +62,25 @@ public class RunGame {
             response = keyboard.nextLine();
             if (response.equalsIgnoreCase("hit")) {
                 player.hit();
-
                 if (player.handTotal() > 21 && player.hasAce()) {
                     player.swapAce();
-                } else if (player.handTotal() > 21) {
+                }
+                if (player.handTotal() > 21) {
+                    displayTable(false);
                     System.out.println("Bust!");
+                    player.subtractCash(playerBet);
+                    player.setBust(true);
+                    break;
                 }
                 displayTable(false);
             } else if (response.equalsIgnoreCase("stay")) {
-                playDealer();
+                break;
+            }
+        }
+        if (!player.getBust()) {
+            playDealer();
+            if (!dealer.getBust()) {
+                checkWhoWon();
             }
         }
     }
@@ -80,10 +90,49 @@ public class RunGame {
             dealer.hit();
             if (dealer.handTotal() > 21 && dealer.hasAce()) {
                 dealer.swapAce();
-            } else if (dealer.handTotal() > 21) {
-                System.out.println("Dealer Busts!");
             }
-            displayTable(true);
         }
+        displayTable(true);
+        if (dealer.handTotal() > 21) {
+            System.out.println("Dealer Busts!\nPlayer wins!");
+            player.addCash(playerBet);
+            dealer.setBust(true);
+        }
+    }
+
+    private static void checkWhoWon() {
+        if (dealer.handTotal() > player.handTotal() && !(dealer.handTotal() > 21)) {
+            System.out.println("Dealer wins!");
+            player.subtractCash(playerBet);
+        } else if (player.handTotal() > dealer.handTotal() && !(player.handTotal() > 21)) {
+            System.out.println("Player wins!");
+            player.addCash(playerBet);
+        } else if (player.handTotal() == dealer.handTotal()) {
+            System.out.println("Push!");
+        }
+    }
+
+    public static void reset() {
+        placeBets();
+        player.deal();
+        dealer.deal();
+        player.setBust(false);
+        dealer.setBust(false);
+        displayTable(false);
+    }
+
+    public static void placeBets() {
+        System.out.println("Place your bet!");
+        playerBet = keyboard.nextInt();
+        //Fix this
+        /*while (playerBet < 1 || playerBet > player.getCash()) {
+            try {
+                playerBet = keyboard.nextInt();
+            } catch (Exception e) {
+                System.out.println("Invalid. Please place a valid bet: ");
+                playerBet = 0;
+            }
+        }*/
+        keyboard.nextLine();
     }
 }

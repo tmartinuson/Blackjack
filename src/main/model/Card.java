@@ -26,10 +26,14 @@ public class Card {
         return cardValue;
     }
 
+    @Override
     public String toString() {
         return cardFace;
     }
 
+    //REQUIRES: this card be an Ace or "A"
+    //MODIFIES: this
+    //EFFECTS: when called this function will switch the Ace value from 11 to 1
     public void swapAceValue() {
         cardValue = 1;
     }
@@ -53,7 +57,8 @@ public class Card {
         return answer;
     }
 
-    //Gets a random card from the deck.
+    //MODIFIES: this
+    //EFFECTS: draws a random card face from the deck and returns the face as a String
     private static String drawCard() {
         Random rand = new Random();
 

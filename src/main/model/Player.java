@@ -8,18 +8,18 @@ public class Player extends Dealer {
         cash = 5000;
     }
 
+    //REQUIRES: bet to be no greater than cash and must be positive
     //MODIFIES: this
-    public boolean makeBet(int bet) {
-        if (bet < cash) {
-            cash -= bet;
-        } else {
-            return false;
-        }
-        return true;
+    //EFFECTS: Subtracts the given bet from the player's cash
+    public void subtractCash(int bet) {
+        cash -= bet;
     }
 
-    public void addCash(int newCash) {
-        cash += newCash;
+    //REQUIRES: bet must be positive
+    //MODIFIES: this
+    //EFFECTS: Adds the given bet to the player's cash
+    public void addCash(int bet) {
+        cash += bet;
     }
 
     public int getCash() {
