@@ -97,6 +97,14 @@ public class DealerTest {
     }
 
     @Test
+    public void swapOneAceButHandTotalNotOver() {
+        //Should not change as the hand total doesn't exceed 21
+        assertEquals(test3.handTotal(), 13);
+        test3.swapAce();
+        assertEquals(test3.handTotal(), 13);
+    }
+
+    @Test
     public void addGivenCardTest() {
         assertEquals(test.toString(), "[J] [5] ");
         test.addGivenCard("3");
