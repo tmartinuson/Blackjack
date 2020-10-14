@@ -91,9 +91,11 @@ public class Dealer {
     //EFFECTS: an ace in blackjack can have 2 values 1 and 11. This switches
     //the ace value in the hand from the default 11 to 1;
     public void swapAce() {
+        int cardValue;
         for (Card i: hand) {
             if (this.handTotal() > 21) {
-                if (i.getCardValue() == 11) {
+                cardValue = i.getCardValue();
+                if (cardValue == 11) {
                     i.swapAceValue();
                 }
             }
