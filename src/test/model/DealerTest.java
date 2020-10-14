@@ -78,11 +78,22 @@ public class DealerTest {
         test3.swapAce(); //11 -> 1
         handValue3 = test3.handTotal();
         assertEquals(handValue3, 12);
-        //Tests the swap ace function for 2 aces
+    }
+
+    @Test
+    public void swapTwoAceTest() {
+        //Should only swap one
         Dealer testTwoAce = new Dealer("A","A");
         assertEquals(testTwoAce.handTotal(), 22);
         testTwoAce.swapAce();
         assertEquals(testTwoAce.handTotal(), 12);
+    }
+
+    @Test
+    public void swapNoAceTest() {
+        assertEquals(test.handTotal(), 15);
+        test.swapAce();
+        assertEquals(test.handTotal(), 15);
     }
 
     @Test
