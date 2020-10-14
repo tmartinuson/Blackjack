@@ -78,6 +78,11 @@ public class DealerTest {
         test3.swapAce(); //11 -> 1
         handValue3 = test3.handTotal();
         assertEquals(handValue3, 12);
+        //Tests the swap ace function for 2 aces
+        Dealer testTwoAce = new Dealer("A","A");
+        assertEquals(testTwoAce.handTotal(), 22);
+        testTwoAce.swapAce();
+        assertEquals(testTwoAce.handTotal(), 12);
     }
 
     @Test
@@ -85,10 +90,5 @@ public class DealerTest {
         assertEquals(test.toString(), "[J] [5] ");
         test.addGivenCard("3");
         assertEquals(test.toString(), "[J] [5] [3] ");
-    }
-
-    @Test
-    public void doubleAceDraw() {
-        test = new Dealer("A","A");
     }
 }

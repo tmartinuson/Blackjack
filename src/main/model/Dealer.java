@@ -16,6 +16,7 @@ public class Dealer {
         hand = new ArrayList<>();
         bust = false;
         deal();
+        swapAce();
     }
 
     //For testing purposes, we pass the constructor the cards we want to test.
