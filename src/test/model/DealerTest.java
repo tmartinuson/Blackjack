@@ -105,6 +105,14 @@ public class DealerTest {
     }
 
     @Test
+    public void swapNoAceHandOver() {
+        assertEquals(test.handTotal(), 15);
+        test.addGivenCard("J");
+        test.swapAce();
+        assertEquals(test.handTotal(), 25);
+    }
+
+    @Test
     public void addGivenCardTest() {
         assertEquals(test.toString(), "[J] [5] ");
         test.addGivenCard("3");
