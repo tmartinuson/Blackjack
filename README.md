@@ -84,4 +84,7 @@ Blackjack without having to load up GTA V and see something that I created!
 - As a user, I want to be able to play a solo game of blackjack and win/lose.
 - As a user, I want to be able to bet certain amounts.
 - As a user, I want to be able to view the cards in my possession.
-- As a user, I want to be able to play a few rounds and quit the game whenever I want.
+- As a user, I want to be able to add multiple cards to a hand.
+- As a user, I want to be able to save my progress of cash earnings.
+- As a user, I want to be able to load my save and resume where I left off.
+
