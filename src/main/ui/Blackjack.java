@@ -2,6 +2,12 @@ package ui;
 
 import model.Dealer;
 import model.Player;
+import persistence.DataReader;
+import persistence.DataWriter;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.lang.management.GarbageCollectorMXBean;
 import java.util.Scanner;
 
 // Blackjack game application
@@ -11,6 +17,9 @@ public class Blackjack {
     private int playerBet = 0;                          // the player's bet made
     private Player player;                              // the player
     private Dealer dealer;                              // the dealer
+    private DataWriter writer;                          // data writer to save game
+    private DataReader reader;                          // data reader to load game
+    private static final String GAME_STORE = "./data/player.json";  // save/load game file path
 
     //EFFECTS: Runs the Blackjack game
     public Blackjack() {
@@ -23,6 +32,9 @@ public class Blackjack {
         System.out.println("Welcome to blackjack! Your starting cash is $5000. Type answers: \"hit\", \"stay\".\n");
         player = new Player();
         dealer = new Dealer();
+        writer = new DataWriter(GAME_STORE);
+        reader = new DataReader(GAME_STORE);
+        loadPrompt();
         while (true) {
             reset();
             if (!checkBlackjack()) {
@@ -31,6 +43,11 @@ public class Blackjack {
             System.out.println("Play again? y/n");
             response = keyboard.nextLine();
             if (response.equalsIgnoreCase("n")) {
+                System.out.println("Would you like to save? y/n");
+                response = keyboard.nextLine();
+                if (response.equalsIgnoreCase("y")) {
+                    saveGame();
+                }
                 break;
             }
         }
@@ -40,20 +57,26 @@ public class Blackjack {
     private void displayTable(boolean dealerTurn) {
         if (dealerTurn) {
             System.out.println(
-                    "\n~~~~~~~~~~~~~~~\n"
-                            + "   " + dealer + dealer.handTotal()
-                            + "\n\n   "
-                            + player + player.handTotal()
-                            + "\n~~~~~~~~~~~~~~~\n\n"
-                            + "Bank: " + player.getCash() + "      Bet: " + playerBet);
+                    "\nDealer's hand"
+                    + "\n~~~~~~~~~~~~~~~\n"
+                    + "   " + dealer + "    Hand Total: " + dealer.handTotal()
+                    + "\n\n   "
+                    + player + "    Hand Total: " + player.handTotal()
+                    + "\n~~~~~~~~~~~~~~~\n"
+                    + player.getName() + "'s hand\n"
+                    + "Bank: " + player.getCash() + "      Bet: " + playerBet
+                    + "\n");
         } else {
             System.out.println(
-                    "\n~~~~~~~~~~~~~~~\n"
-                            + "   " + dealer.dealerHand()
-                            + "\n\n   "
-                            + player + player.handTotal()
-                            + "\n~~~~~~~~~~~~~~~\n\n"
-                            + "Bank: " + player.getCash() + "      Bet: " + playerBet);
+                    "\nDealer's hand"
+                    + "\n~~~~~~~~~~~~~~~\n"
+                    + "   " + dealer.dealerHand()
+                    + "\n\n   "
+                    + player + "    Hand Total: " + player.handTotal()
+                    + "\n~~~~~~~~~~~~~~~\n"
+                    + player.getName() + "'s hand\n"
+                    + "Bank: " + player.getCash() + "      Bet: " + playerBet
+                    + "\n");
         }
     }
 
@@ -62,7 +85,7 @@ public class Blackjack {
     private boolean checkBlackjack() {
         if (player.handTotal() == 21) {
             playerBet *= (1.5);
-            System.out.println("Blackjack! You've won " + playerBet);
+            System.out.println("Blackjack (Payout 3/2)! You've won " + playerBet);
             return true;
         } else {
             return false;
@@ -120,7 +143,7 @@ public class Blackjack {
         }
         displayTable(true);
         if (dealer.handTotal() > 21) {
-            System.out.println("Dealer Busts!\nPlayer wins!");
+            System.out.println("Dealer Busts!\n" + player.getName() + " wins!");
             player.addCash(playerBet);
             dealer.setBust(true);
         }
@@ -135,7 +158,7 @@ public class Blackjack {
             System.out.println("Dealer wins!");
             player.subtractCash(playerBet);
         } else if (player.handTotal() > dealer.handTotal() && !(player.handTotal() > 21)) {
-            System.out.println("Player wins!");
+            System.out.println(player.getName() + " wins!");
             player.addCash(playerBet);
         } else if (player.handTotal() == dealer.handTotal()) {
             System.out.println("Push!");
@@ -160,17 +183,61 @@ public class Blackjack {
     //MODIFIES: this
     //EFFECTS: asks the user what they would like to bet and places that bet.
     private void placeBets() {
-        System.out.println("Place your bet!");
-        playerBet = keyboard.nextInt();
-        //Fix this
-        /*while (playerBet < 1 || playerBet > player.getCash()) {
+        System.out.println("\nPlace your bet!");
+        while (true) {
             try {
                 playerBet = keyboard.nextInt();
-            } catch (Exception e) {
+                if (playerBet < 1 || playerBet > player.getCash()) {
+                    throw new RuntimeException();
+                }
+                break;
+            } catch (RuntimeException e) {
                 System.out.println("Invalid. Please place a valid bet: ");
                 playerBet = 0;
+                keyboard.nextLine();
             }
-        }*/
+        }
         keyboard.nextLine();
+    }
+
+    //MODIFIES: this
+    //EFFECTS: asks the player if they want to load their previous game from file
+    // and will load that game if chosen. Otherwise the player will enter their name for a new game.
+    private void loadPrompt() {
+        System.out.println("Would you like to load from your previous game? y/n");
+        String response = keyboard.nextLine();
+        if (response.equalsIgnoreCase("y")) {
+            loadGame();
+        } else {
+            System.out.println("Enter your name: ");
+            player.setName(keyboard.nextLine());
+        }
+    }
+
+    //EFFECTS: saves the player's data to a file
+    private void saveGame() {
+        try {
+            writer.open();
+            writer.write(player);
+            writer.close();
+            System.out.println("Successfully saved " + player.getName() + "'s game to " + GAME_STORE);
+            System.out.println("Player name: " + player.getName() + "\nBank: " + player.getCash());
+        } catch (FileNotFoundException e) {
+            System.out.println("Save unsuccessful at: " + GAME_STORE);
+        }
+    }
+
+    //MODIFIES: this
+    //EFFECTS: loads the player's data from a file
+    private void loadGame() {
+        try {
+            player = reader.read();
+            System.out.println("Successfully loaded " + player.getName() + "'s game from " + GAME_STORE);
+            System.out.println("Player name: " + player.getName() + "\nBank: " + player.getCash());
+        } catch (IOException e) {
+            System.out.println("Load unsuccessful.");
+            System.out.println("Enter your name: ");
+            player.setName(keyboard.nextLine());
+        }
     }
 }

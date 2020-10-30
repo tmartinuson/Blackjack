@@ -7,7 +7,6 @@ public class Dealer {
     protected ArrayList<Card> hand;         // stores the cards in the dealer's possession
     protected boolean bust;                 // conditional if the dealer has busted or not
 
-    //REQUIRES: the dealer does not get 2 aces off the start
     //EFFECTS: creates a new empty hand for the dealer,
     // sets the dealers bust to false,
     // deals the dealer 2 new cards,
@@ -19,6 +18,9 @@ public class Dealer {
         swapAce();
     }
 
+    //EFFECTS: creates a designated hand for the dealer,
+    // sets the dealers bust to false,
+    // deals the dealer the 2 given cards
     //For testing purposes, we pass the constructor the cards we want to test.
     public Dealer(String cardOne, String cardTwo) {
         hand = new ArrayList<>();

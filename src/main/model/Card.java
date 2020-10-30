@@ -11,13 +11,14 @@ public class Card {
     private static final ArrayList<String> DECK =       // a constant list of valid cards from a standard DECK
             new ArrayList<>(Arrays.asList("A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"));
 
-    //This creates a random card instance
+
+    //EFFECTS: This creates a random card instance
     public Card() {
         cardFace = drawCard();
         cardValue = findValue(cardFace);
     }
 
-    //This creates a determined card instance
+    //EFFECTS: This creates a determined card instance
     public Card(String newFace) {
         cardFace = newFace;
         cardValue = findValue(cardFace);
