@@ -1,35 +1,42 @@
 package ui;
 
 import javax.swing.*;
-import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class BlackjackGUI {
-    JPanel panel;
-    JFrame frame;
+    private JButton buttonHit;
+    private JPanel panelMain;
+    private JButton buttonStay;
+    private JLabel playerCard;
+    private JFrame frame;
 
     public BlackjackGUI() {
-        initialize();
-
-        ImageIcon cardTest = new ImageIcon("./data/cardImages/10_of_spades.png");
-        JLabel label = new JLabel(cardTest);
-        frame.add(label);
-        frame.pack();
-
-    }
-
-    public void initialize() {
-        panel = new JPanel();
-        frame = new JFrame();
-        panel.setBackground(new Color(29, 102, 29));
-        panel.setBorder(BorderFactory.createBevelBorder(1));
+        frame = new JFrame("Blackjack Game");
+        frame.setContentPane(panelMain);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setMinimumSize(new Dimension(1000,650));
-        frame.add(panel);
+        initializeCards();
         frame.pack();
         frame.setVisible(true);
+
+        buttonHit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showConfirmDialog(null,"It worked!");
+            }
+        });
+    }
+
+    private void initializeCards() {
+        /*ImageIcon cardTest = new ImageIcon("./data/cardImages/10_of_spades.png");
+        playerCard = new JLabel(cardTest);*/
     }
 
     public static void main(String[] args) {
         new BlackjackGUI();
+    }
+
+    private void createUIComponents() {
+        playerCard = new JLabel(new ImageIcon("./data/cardImages/10_of_spades.png"));
     }
 }

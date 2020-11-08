@@ -7,7 +7,6 @@ import persistence.DataWriter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.management.GarbageCollectorMXBean;
 import java.util.Scanner;
 
 // Blackjack game application
