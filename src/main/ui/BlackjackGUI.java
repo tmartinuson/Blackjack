@@ -1,8 +1,14 @@
 package ui;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 public class BlackjackGUI {
     private JButton buttonHit;
@@ -25,6 +31,14 @@ public class BlackjackGUI {
                 JOptionPane.showConfirmDialog(null,"It worked!");
             }
         });
+        panelMain.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                int width = panelMain.getWidth();
+                int height = panelMain.getHeight();
+                setIconImageSize(width,height);
+            }
+        });
     }
 
     private void initializeCards() {
@@ -37,6 +51,26 @@ public class BlackjackGUI {
     }
 
     private void createUIComponents() {
-        playerCard = new JLabel(new ImageIcon("./data/cardImages/10_of_spades.png"));
+        ImageIcon card = new ImageIcon("./data/cardImages/10_of_spades.png");
+        Image cardTest = card.getImage();
+        Image cardResize = getScaledImage(cardTest,150,250);
+        card = new ImageIcon(cardResize);
+        playerCard = new JLabel(card);
+    }
+
+    private void setIconImageSize(int width,int height) {
+        //set player cards and dealer cards to the screen size
+    }
+
+    /*
+    This is modeled off of multiple stack overflow posts for scaled images
+     */
+    private Image getScaledImage(Image image, int width, int height) {
+        BufferedImage newImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_BGR);
+        Graphics2D resize = newImage.createGraphics();
+        resize.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        resize.drawImage(image,0,0,width,height,null);
+        resize.dispose();
+        return newImage;
     }
 }
