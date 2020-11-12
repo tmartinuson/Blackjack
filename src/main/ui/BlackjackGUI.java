@@ -1,6 +1,5 @@
 package ui;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,20 +7,24 @@ import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
+import java.util.ArrayList;
 
 public class BlackjackGUI {
     private JButton buttonHit;
     private JPanel panelMain;
     private JButton buttonStay;
     private JLabel playerCard;
+    private ArrayList<JLabel> playerHand;
+    private JPanel cards;
     private JFrame frame;
 
     public BlackjackGUI() {
         frame = new JFrame("Blackjack Game");
+        playerHand = new ArrayList<>();
         frame.setContentPane(panelMain);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         initializeCards();
+        frame.add(cards);
         frame.pack();
         frame.setVisible(true);
 
@@ -44,6 +47,12 @@ public class BlackjackGUI {
     private void initializeCards() {
         /*ImageIcon cardTest = new ImageIcon("./data/cardImages/10_of_spades.png");
         playerCard = new JLabel(cardTest);*/
+        playerHand.add(new JLabel(new ImageIcon("./data/cardImages/10_of_spades.png")));
+        playerHand.add(new JLabel(new ImageIcon("./data/cardImages/9_of_spades.png")));
+        playerHand.add(new JLabel(new ImageIcon("./data/cardImages/8_of_spades.png")));
+        for (JLabel i: playerHand) {
+            cards.add(i);
+        }
     }
 
     public static void main(String[] args) {
@@ -51,11 +60,11 @@ public class BlackjackGUI {
     }
 
     private void createUIComponents() {
-        ImageIcon card = new ImageIcon("./data/cardImages/10_of_spades.png");
+        /*ImageIcon card = new ImageIcon("./data/cardImages/10_of_spades.png");
         Image cardTest = card.getImage();
         Image cardResize = getScaledImage(cardTest,150,250);
         card = new ImageIcon(cardResize);
-        playerCard = new JLabel(card);
+        playerCard = new JLabel(card);*/
     }
 
     private void setIconImageSize(int width,int height) {
