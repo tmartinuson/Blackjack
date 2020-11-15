@@ -69,6 +69,10 @@ public class Dealer {
         return answer;
     }
 
+    public ArrayList<Card> getHand() {
+        return hand;
+    }
+
     //MODIFIES: this
     //EFFECTS: sets if the dealer has busted or not given the parameter
     public void setBust(boolean bust) {

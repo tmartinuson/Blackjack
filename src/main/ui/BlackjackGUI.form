@@ -1,45 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ui.BlackjackGUI">
-  <grid id="27dc6" binding="panelMain" layout-manager="GridLayoutManager" row-count="4" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-    <margin top="0" left="0" bottom="0" right="0"/>
+  <grid id="27dc6" binding="table" layout-manager="GridBagLayout">
     <constraints>
-      <xy x="20" y="23" width="500" height="397"/>
+      <xy x="20" y="20" width="500" height="647"/>
     </constraints>
-    <properties/>
+    <properties>
+      <font/>
+    </properties>
     <border type="none"/>
     <children>
-      <component id="18591" class="javax.swing.JButton" binding="buttonHit">
+      <hspacer id="b0f7e">
         <constraints>
-          <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="6" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
-        <properties>
-          <text value="Hit"/>
-        </properties>
-      </component>
-      <component id="18c9" class="javax.swing.JButton" binding="buttonStay">
+      </hspacer>
+      <vspacer id="859f3">
         <constraints>
-          <grid row="0" column="2" row-span="4" col-span="1" vsize-policy="0" hsize-policy="3" anchor="10" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
-        <properties>
-          <text value="Stay"/>
-        </properties>
-      </component>
-      <component id="c81aa" class="javax.swing.JLabel" binding="playerCard" custom-create="true">
+      </vspacer>
+      <vspacer id="9e6f3">
         <constraints>
-          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="6" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0" ipady="250"/>
         </constraints>
-        <properties>
-          <text value=""/>
-        </properties>
-      </component>
-      <grid id="e20d0" binding="cards" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+      </vspacer>
+      <grid id="8b9cf" binding="playerCardPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties/>
         <border type="none"/>
         <children/>
       </grid>
+      <grid id="9b9bb" binding="dealerCardPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+        <constraints>
+          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children/>
+      </grid>
+      <component id="1812d" class="javax.swing.JButton" binding="hitButton">
+        <constraints>
+          <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="Hit"/>
+        </properties>
+      </component>
+      <component id="e4b0a" class="javax.swing.JButton" binding="stayButton">
+        <constraints>
+          <grid row="8" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="Stay"/>
+        </properties>
+      </component>
+      <vspacer id="bc440">
+        <constraints>
+          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0" ipady="100"/>
+        </constraints>
+      </vspacer>
+      <vspacer id="d662">
+        <constraints>
+          <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0" ipady="100"/>
+        </constraints>
+      </vspacer>
+      <hspacer id="dfe4a">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0" ipadx="100"/>
+        </constraints>
+      </hspacer>
+      <hspacer id="22add">
+        <constraints>
+          <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0" ipadx="100"/>
+        </constraints>
+      </hspacer>
     </children>
   </grid>
 </form>
