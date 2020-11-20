@@ -3,6 +3,8 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DealerTest {
@@ -19,15 +21,15 @@ public class DealerTest {
 
     @Test
     public void hitTest() {
-        assertTrue(test.toString().equals("[J] [5] "));
+        assertEquals(test.toString(), "[J] [5] ");
         test.hit();
         assertTrue(test.handTotal() > handValue);
-        assertFalse(test.toString().equals("[J] [5] "));
+        assertNotEquals(test.toString(), "[J] [5] ");
     }
 
     @Test
     public void dealTest() {
-        assertTrue(test.toString().equals("[J] [5] "));
+        assertEquals(test.toString(), "[J] [5] ");
         //Add a large set of cards to the dealers hand to make sure that we don't randomly get the same
         //two cards values dealt in our test or if they were to equal the same amount with different cards.
         for (int i = 0; i < 20; i++) {
@@ -47,14 +49,14 @@ public class DealerTest {
 
     @Test
     public void dealerHandTest() {
-        assertTrue(test.dealerHand().equals("[J] [ ]"));
-        assertTrue(test2.dealerHand().equals("[3] [ ]"));
+        assertEquals(test.dealerHand(), "[J] [ ]");
+        assertEquals(test2.dealerHand(), "[3] [ ]");
     }
 
     @Test
     public void toStringTest() {
-        assertTrue(test.dealerHand().equals("[J] [ ]"));
-        assertTrue(test2.dealerHand().equals("[3] [ ]"));
+        assertEquals(test.dealerHand(), "[J] [ ]");
+        assertEquals(test2.dealerHand(), "[3] [ ]");
     }
 
     @Test
@@ -117,5 +119,16 @@ public class DealerTest {
         assertEquals(test.toString(), "[J] [5] ");
         test.addGivenCard("3");
         assertEquals(test.toString(), "[J] [5] [3] ");
+    }
+
+    @Test
+    public void getHandTest() {
+        ArrayList<Card> hand = test.getHand();
+        ArrayList<Card> hand2 = new ArrayList<>();
+        hand2.add(new Card("J"));
+        hand2.add(new Card("5"));
+        for (int i = 0; i < hand2.size(); i++) {
+            assertEquals(hand.get(i).toString(), hand2.get(i).toString());
+        }
     }
 }
