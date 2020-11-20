@@ -43,6 +43,7 @@ public class Dealer {
         }
         hand.add(new Card());
         hand.add(new Card());
+        swapAce();
     }
 
     //EFFECTS: adds up the value of the cards in hand

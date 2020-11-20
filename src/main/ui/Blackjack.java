@@ -4,7 +4,6 @@ import model.Dealer;
 import model.Player;
 import persistence.DataReader;
 import persistence.DataWriter;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
@@ -13,9 +12,9 @@ import java.util.Scanner;
 public class Blackjack {
     private Scanner keyboard = new Scanner(System.in);  // keyboard scanner for input
     private String response = "";                       // storage for input
-    private int playerBet = 0;                          // the player's bet made
-    private Player player;                              // the player
-    private Dealer dealer;                              // the dealer
+    protected int playerBet = 0;                          // the player's bet made
+    protected Player player;                              // the player
+    protected Dealer dealer;                              // the dealer
     private DataWriter writer;                          // data writer to save game
     private DataReader reader;                          // data reader to load game
     private static final String GAME_STORE = "./data/player.json";  // save/load game file path
@@ -23,6 +22,12 @@ public class Blackjack {
     //EFFECTS: Runs the Blackjack game
     public Blackjack() {
         runBlackjack();
+    }
+
+    //EFFECTS: Creates an instance for BlackjackGUI that doesnt run the console version of the game
+    public Blackjack(boolean gui) {
+        writer = new DataWriter(GAME_STORE);
+        reader = new DataReader(GAME_STORE);
     }
 
     //MODIFIES: this
@@ -81,7 +86,7 @@ public class Blackjack {
 
     //MODIFIES: this
     //EFFECTS: checks to see if the user won a blackjack. Blackjack pays out a 3:2 ratio
-    private boolean checkBlackjack() {
+    protected boolean checkBlackjack() {
         if (player.handTotal() == 21) {
             playerBet *= (1.5);
             System.out.println("Blackjack (Payout 3/2)! You've won " + playerBet);
@@ -95,7 +100,7 @@ public class Blackjack {
     //EFFECTS: plays the turn using the user's responses. The goal is to get 21 or as close as possible
     // and if the user doesnt bust then the dealer will play to compete.
     //If the dealer gets a higher hand without going over 21 then the user loses the bet.
-    private void playTurn() {
+    protected void playTurn() {
         while (player.handTotal() < 21) {
             System.out.println("Hit or stay?");
             response = keyboard.nextLine();
@@ -121,7 +126,7 @@ public class Blackjack {
 
     //MODIFIES: this
     //EFFECTS: checks and makes the appropriate end game method calls depending if the player or dealer busts.
-    private void endOfTurn() {
+    protected void endOfTurn() {
         if (!player.getBust()) {
             playDealer();
             if (!dealer.getBust()) {
@@ -133,7 +138,11 @@ public class Blackjack {
     //MODIFIES: this
     //EFFECTS: plays out the dealer's turn following the same rules as the player. If the dealer busts then the player
     // wins the bet.
-    private void playDealer() {
+    protected void playDealer() {
+        //For 2 aces in original hand
+        if (dealer.handTotal() > 21 && dealer.hasAce()) {
+            dealer.swapAce();
+        }
         while (dealer.handTotal() < 17) {
             dealer.hit();
             if (dealer.handTotal() > 21 && dealer.hasAce()) {
@@ -214,7 +223,7 @@ public class Blackjack {
     }
 
     //EFFECTS: saves the player's data to a file
-    private void saveGame() {
+    protected void saveGame() {
         try {
             writer.open();
             writer.write(player);
@@ -228,7 +237,7 @@ public class Blackjack {
 
     //MODIFIES: this
     //EFFECTS: loads the player's data from a file
-    private void loadGame() {
+    protected void loadGame() {
         try {
             player = reader.read();
             System.out.println("Successfully loaded " + player.getName() + "'s game from " + GAME_STORE);
