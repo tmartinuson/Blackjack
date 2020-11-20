@@ -72,7 +72,7 @@
           <foreground color="-14733487"/>
         </properties>
       </component>
-      <component id="30b67" class="javax.swing.JLabel" binding="playerHandtotal">
+      <component id="30b67" class="javax.swing.JLabel" binding="playerHandTotal">
         <constraints>
           <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="2" fill="0" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0"/>
@@ -84,7 +84,7 @@
           <text value=""/>
         </properties>
       </component>
-      <component id="a5cab" class="javax.swing.JLabel" binding="dealerHandtotal">
+      <component id="a5cab" class="javax.swing.JLabel" binding="dealerHandTotal">
         <constraints>
           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0"/>

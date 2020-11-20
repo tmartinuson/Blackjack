@@ -9,8 +9,6 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,9 +25,8 @@ public class BlackjackGUI extends Blackjack {
     private JButton stayButton;                 // button used for ending player's turn
     private JLabel playerBetLabel;              // displays the player's bet
     private JLabel playerBankLabel;             // displays the player's bank
-    private JLabel playerHandtotal;             // displays the player's hand total
-    private JLabel dealerHandtotal;             // displays the dealer's hand total
-    private BackgroundPanel backgroundPanel;    // creates the background wallpaper
+    private JLabel playerHandTotal;             // displays the player's hand total
+    private JLabel dealerHandTotal;             // displays the dealer's hand total
 
     //EFFECTS: Runs the BlackjackGUI version of the game.
     public BlackjackGUI() {
@@ -44,7 +41,8 @@ public class BlackjackGUI extends Blackjack {
     // previous game.
     private void setup() {
         window = new JFrame("Blackjack");
-        backgroundPanel = new BackgroundPanel();
+        // creates the background wallpaper
+        BackgroundPanel backgroundPanel = new BackgroundPanel();
         window.setContentPane(backgroundPanel);
         table.setOpaque(false);
         playerCardPanel.setOpaque(false);
@@ -74,14 +72,11 @@ public class BlackjackGUI extends Blackjack {
     //MODIFIES: this
     //EFFECTS: ends the user's turn when the button is clicked. Plays out the rest of the game involving the dealer.
     private void stay() {
-        stayButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                playDealer();
-                displayHands(true);
-                checkWin();
-                gameOverPrompt();
-            }
+        stayButton.addActionListener(e -> {
+            playDealer();
+            displayHands(true);
+            checkWin();
+            gameOverPrompt();
         });
     }
 
@@ -90,24 +85,21 @@ public class BlackjackGUI extends Blackjack {
     //EFFECTS: plays the user's turn when the button is clicked. The goal is to get 21 or as close as possible
     // and if the user doesnt bust they can continue to play.
     private void hit() {
-        hitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                player.hit();
-                if (player.handTotal() > 21 && player.hasAce()) {
-                    player.swapAce();
-                }
-                playerHandtotal.setText(player.getName() + "'s Hand total: " + player.handTotal());
-                if (player.handTotal() > 21) {
-                    displayHands(false);
-                    playSound("lose");
-                    JOptionPane.showMessageDialog(null, "Bust!");
-                    player.subtractCash(playerBet);
-                    player.setBust(true);
-                    gameOverPrompt();
-                }
-                displayHands(false);
+        hitButton.addActionListener(e -> {
+            player.hit();
+            if (player.handTotal() > 21 && player.hasAce()) {
+                player.swapAce();
             }
+            playerHandTotal.setText(player.getName() + "'s Hand total: " + player.handTotal());
+            if (player.handTotal() > 21) {
+                displayHands(false);
+                playSound("lose");
+                JOptionPane.showMessageDialog(null, "Bust!");
+                player.subtractCash(playerBet);
+                player.setBust(true);
+                gameOverPrompt();
+            }
+            displayHands(false);
         });
     }
 
@@ -117,7 +109,7 @@ public class BlackjackGUI extends Blackjack {
     @Override
     protected void playDealer() {
         super.playDealer();
-        dealerHandtotal.setText("Dealer Hand total: " + dealer.handTotal());
+        dealerHandTotal.setText("Dealer Hand total: " + dealer.handTotal());
     }
 
     //MODIFIES: this
@@ -172,14 +164,14 @@ public class BlackjackGUI extends Blackjack {
         placeBets();
         playerCardPanel.removeAll();
         dealerCardPanel.removeAll();
-        dealerHandtotal.setText("");
+        dealerHandTotal.setText("");
         player.deal();
         dealer.deal();
         displayHands(false);
         playerBankLabel.setText("Bank: " + player.getCash());
         player.setBust(false);
         dealer.setBust(false);
-        playerHandtotal.setText(player.getName() + "'s Hand total: " + player.handTotal());
+        playerHandTotal.setText(player.getName() + "'s Hand total: " + player.handTotal());
         if (checkBlackjack()) {
             playSound("win");
             JOptionPane.showMessageDialog(window,"Blackjack! " + player.getName() + " wins " + playerBet + "!");
