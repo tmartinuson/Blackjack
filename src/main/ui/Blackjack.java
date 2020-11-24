@@ -1,13 +1,8 @@
 package ui;
 
-import model.Dealer;
-import model.Player;
-import persistence.DataReader;
-import persistence.DataWriter;
-
 import java.util.Scanner;
 
-// Blackjack game application
+// Represents a game of Blackjack as a console version of the game.
 public class Blackjack extends PlayableGame {
     private Scanner keyboard = new Scanner(System.in);  // keyboard scanner for input
     private String response = "";                       // storage for input
@@ -23,10 +18,6 @@ public class Blackjack extends PlayableGame {
     @Override
     protected void runGame() {
         System.out.println("Welcome to blackjack! Your starting cash is $5000. Type answers: \"hit\", \"stay\".\n");
-        player = new Player();
-        dealer = new Dealer();
-        writer = new DataWriter(GAME_STORE);
-        reader = new DataReader(GAME_STORE);
         loadPrompt();
         while (true) {
             reset();

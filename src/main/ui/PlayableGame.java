@@ -16,10 +16,13 @@ public abstract class PlayableGame {
     protected DataWriter writer;                          // data writer to save game
     protected DataReader reader;                          // data reader to load game
 
-    //EFFECTS: creates a playable game object and initializes the data writing and reading streams.
+    //EFFECTS: creates a playable game object and initializes
+    // the data writing and reading streams as well as player and dealer.
     public PlayableGame() {
         writer = new DataWriter(GAME_STORE);
         reader = new DataReader(GAME_STORE);
+        player = new Player();
+        dealer = new Dealer();
     }
 
     //MODIFIES: this

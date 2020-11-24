@@ -88,13 +88,32 @@ Blackjack without having to load up GTA V and see something that I created!
 - As a user, I want to be able to save my game.
 - As a user, I want to be able to load my save and resume where I left off.
 
-##Phase 4: Task 2 - Type Hierarchy
-- Type hierarchy for BlackjackGUI.java and Blackjack.java(Console version) extending abstract class PlayableGame.java
-- Overridden abstract class methods from PlayableGame
+##Phase 4: Task 2
+- Type hierarchy for BlackjackGUI.java and Blackjack.java(Console version) refactored 
+into and extends abstract class PlayableGame.java
+- Overridden abstract class methods from PlayableGame:
     - runGame();
     - displayHands(boolean dealerTurn);
     - loadPrompt();
     - checkWhoWon();
     - placeBets();
     - reset();
+    
+##Phase 4: Task 3
+By looking at the project UML, if I had more time for this project I would:
+- Refactor the Dealer and Player classes into a superclass type hierarchy with both children as Dealer and Player.
+- Refactor enumeration Suit to belong to Card and not BlackjackGUI
+- Refactor Card with an enumeration for DECK instead of as a final ArrayList.
+
+However, if I had more time to work on this project I would:
+- Add buttons and Panel to the GUI window for starting a new game, quitting the game.
+- Remove all popup windows.
+- Add fields to the GUI window to place bets, enter name and save game/load game.
+- Restructure the layout of the GUI so that its more evenly spaced within the Panel.
+- Change fonts or add a new Label to represent the Player's information.
+- Add an option to choose between the console version of the game (Blackjack.java)
+ and the GUI version (BlackjackGUI.java). 
+
+
+
 

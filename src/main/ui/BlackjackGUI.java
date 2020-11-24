@@ -1,8 +1,6 @@
 package ui;
 
 import model.Card;
-import model.Dealer;
-import model.Player;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
@@ -53,8 +51,6 @@ public class BlackjackGUI extends PlayableGame {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setVisible(true);
         window.pack();
-        player = new Player();
-        dealer = new Dealer();
         loadPrompt();
     }
 
