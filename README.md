@@ -88,3 +88,13 @@ Blackjack without having to load up GTA V and see something that I created!
 - As a user, I want to be able to save my game.
 - As a user, I want to be able to load my save and resume where I left off.
 
+##Phase 4: Task 2 - Type Hierarchy
+- Type hierarchy for BlackjackGUI.java and Blackjack.java(Console version) extending abstract class PlayableGame.java
+- Overridden abstract class methods from PlayableGame
+    - runGame();
+    - displayHands(boolean dealerTurn);
+    - loadPrompt();
+    - checkWhoWon();
+    - placeBets();
+    - reset();
+

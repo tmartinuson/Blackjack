@@ -4,35 +4,24 @@ import model.Dealer;
 import model.Player;
 import persistence.DataReader;
 import persistence.DataWriter;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+
 import java.util.Scanner;
 
 // Blackjack game application
-public class Blackjack {
+public class Blackjack extends PlayableGame {
     private Scanner keyboard = new Scanner(System.in);  // keyboard scanner for input
     private String response = "";                       // storage for input
-    protected int playerBet = 0;                          // the player's bet made
-    protected Player player;                              // the player
-    protected Dealer dealer;                              // the dealer
-    private DataWriter writer;                          // data writer to save game
-    private DataReader reader;                          // data reader to load game
-    private static final String GAME_STORE = "./data/player.json";  // save/load game file path
 
     //EFFECTS: Runs the Blackjack game
     public Blackjack() {
-        runBlackjack();
-    }
-
-    //EFFECTS: Creates an instance for BlackjackGUI that doesnt run the console version of the game
-    public Blackjack(boolean gui) {
-        writer = new DataWriter(GAME_STORE);
-        reader = new DataReader(GAME_STORE);
+        super();
+        runGame();
     }
 
     //MODIFIES: this
     //EFFECTS: runs the game based off user decisions and data
-    private void runBlackjack() {
+    @Override
+    protected void runGame() {
         System.out.println("Welcome to blackjack! Your starting cash is $5000. Type answers: \"hit\", \"stay\".\n");
         player = new Player();
         dealer = new Dealer();
@@ -58,7 +47,8 @@ public class Blackjack {
     }
 
     //EFFECTS: displays the blackjack table for the user in console depending on if its the user's turn or the dealer's
-    private void displayTable(boolean dealerTurn) {
+    @Override
+    protected void displayHands(boolean dealerTurn) {
         if (dealerTurn) {
             System.out.println(
                     "\nDealer's hand"
@@ -85,18 +75,6 @@ public class Blackjack {
     }
 
     //MODIFIES: this
-    //EFFECTS: checks to see if the user won a blackjack. Blackjack pays out a 3:2 ratio
-    protected boolean checkBlackjack() {
-        if (player.handTotal() == 21) {
-            playerBet *= (1.5);
-            System.out.println("Blackjack (Payout 3/2)! You've won " + playerBet);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    //MODIFIES: this
     //EFFECTS: plays the turn using the user's responses. The goal is to get 21 or as close as possible
     // and if the user doesnt bust then the dealer will play to compete.
     //If the dealer gets a higher hand without going over 21 then the user loses the bet.
@@ -110,13 +88,13 @@ public class Blackjack {
                     player.swapAce();
                 }
                 if (player.handTotal() > 21) {
-                    displayTable(false);
+                    displayHands(false);
                     System.out.println("Bust!");
                     player.subtractCash(playerBet);
                     player.setBust(true);
                     break;
                 }
-                displayTable(false);
+                displayHands(false);
             } else if (response.equalsIgnoreCase("stay")) {
                 break;
             }
@@ -136,32 +114,11 @@ public class Blackjack {
     }
 
     //MODIFIES: this
-    //EFFECTS: plays out the dealer's turn following the same rules as the player. If the dealer busts then the player
-    // wins the bet.
-    protected void playDealer() {
-        //For 2 aces in original hand
-        if (dealer.handTotal() > 21 && dealer.hasAce()) {
-            dealer.swapAce();
-        }
-        while (dealer.handTotal() < 17) {
-            dealer.hit();
-            if (dealer.handTotal() > 21 && dealer.hasAce()) {
-                dealer.swapAce();
-            }
-        }
-        displayTable(true);
-        if (dealer.handTotal() > 21) {
-            System.out.println("Dealer Busts!\n" + player.getName() + " wins!");
-            player.addCash(playerBet);
-            dealer.setBust(true);
-        }
-    }
-
-    //MODIFIES: this
     //EFFECTS: checks to see who won the game by having the higher hand without going over 21.
     //If both the user and dealer have the same total amount in their hands then its called a push and the bet
     // stays with the player.
-    private void checkWhoWon() {
+    @Override
+    protected void checkWhoWon() {
         if (dealer.handTotal() > player.handTotal() && !(dealer.handTotal() > 21)) {
             System.out.println("Dealer wins!");
             player.subtractCash(playerBet);
@@ -176,13 +133,14 @@ public class Blackjack {
     //MODIFIES: this
     //EFFECTS: resets the game for the next round by placing bets
     // and dealing new cards and clearing previous conditions.
-    private void reset() {
+    @Override
+    protected void reset() {
         placeBets();
         player.deal();
         dealer.deal();
         player.setBust(false);
         dealer.setBust(false);
-        displayTable(false);
+        displayHands(false);
     }
 
     //REQUIRES: the user must enter an integer (user cannot enter a String).
@@ -190,7 +148,8 @@ public class Blackjack {
     // User must also have cash in their bank in order to play.
     //MODIFIES: this
     //EFFECTS: asks the user what they would like to bet and places that bet.
-    private void placeBets() {
+    @Override
+    protected void placeBets() {
         System.out.println("\nPlace your bet!");
         while (true) {
             try {
@@ -211,7 +170,8 @@ public class Blackjack {
     //MODIFIES: this
     //EFFECTS: asks the player if they want to load their previous game from file
     // and will load that game if chosen. Otherwise the player will enter their name for a new game.
-    private void loadPrompt() {
+    @Override
+    protected void loadPrompt() {
         System.out.println("Would you like to load from your previous game? y/n");
         String response = keyboard.nextLine();
         if (response.equalsIgnoreCase("y")) {
@@ -222,28 +182,11 @@ public class Blackjack {
         }
     }
 
-    //EFFECTS: saves the player's data to a file
-    protected void saveGame() {
-        try {
-            writer.open();
-            writer.write(player);
-            writer.close();
-            System.out.println("Successfully saved " + player.getName() + "'s game to " + GAME_STORE);
-            System.out.println("Player name: " + player.getName() + "\nBank: " + player.getCash());
-        } catch (FileNotFoundException e) {
-            System.out.println("Save unsuccessful at: " + GAME_STORE);
-        }
-    }
-
-    //MODIFIES: this
-    //EFFECTS: loads the player's data from a file
+    @Override
     protected void loadGame() {
-        try {
-            player = reader.read();
-            System.out.println("Successfully loaded " + player.getName() + "'s game from " + GAME_STORE);
-            System.out.println("Player name: " + player.getName() + "\nBank: " + player.getCash());
-        } catch (IOException e) {
-            System.out.println("Load unsuccessful.");
+        super.loadGame();
+        //Default build if the load was unsuccessful
+        if (player.getName().equals("Player") && player.getCash() == 5000) {
             System.out.println("Enter your name: ");
             player.setName(keyboard.nextLine());
         }

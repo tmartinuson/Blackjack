@@ -16,7 +16,7 @@ import java.util.Random;
 
 // Represents a Blackjack GUI version of the game with a full table graphically displayed with the functionality
 //of a standard game of blackjack.
-public class BlackjackGUI extends Blackjack {
+public class BlackjackGUI extends PlayableGame {
     private JFrame window;                      // stores the frame for the window
     private JPanel table;                       // stores the table for the game components
     private JPanel playerCardPanel;             // stores the player's card images
@@ -30,7 +30,7 @@ public class BlackjackGUI extends Blackjack {
 
     //EFFECTS: Runs the BlackjackGUI version of the game.
     public BlackjackGUI() {
-        super(true);
+        super();
         setup();
         runGame();
     }
@@ -55,12 +55,13 @@ public class BlackjackGUI extends Blackjack {
         window.pack();
         player = new Player();
         dealer = new Dealer();
-        promptLoadGame();
+        loadPrompt();
     }
 
     //MODIFIES: this
     //EFFECTS: runs the game based off user decisions and data input
-    private void runGame() {
+    @Override
+    protected void runGame() {
         reset();
         hitButton.setVisible(true);
         stayButton.setVisible(true);
@@ -74,8 +75,7 @@ public class BlackjackGUI extends Blackjack {
     private void stay() {
         stayButton.addActionListener(e -> {
             playDealer();
-            displayHands(true);
-            checkWin();
+            checkWhoWon();
             gameOverPrompt();
         });
     }
@@ -140,7 +140,8 @@ public class BlackjackGUI extends Blackjack {
     //EFFECTS: checks to see who won the game by having the higher hand without going over 21.
     //If both the user and dealer have the same total amount in their hands then its called a push and the bet
     // stays with the player. If the dealer busts then the player wins.
-    private void checkWin() {
+    @Override
+    protected void checkWhoWon() {
         if (dealer.handTotal() > 21) {
             playSound("win");
             JOptionPane.showMessageDialog(null, "Dealer Busts!");
@@ -160,7 +161,8 @@ public class BlackjackGUI extends Blackjack {
 
     //MODIFIES: this
     //EFFECTS: resets the game for another play through of Blackjack.
-    private void reset() {
+    @Override
+    protected void reset() {
         placeBets();
         playerCardPanel.removeAll();
         dealerCardPanel.removeAll();
@@ -183,7 +185,8 @@ public class BlackjackGUI extends Blackjack {
     //REQUIRES: the user must enter a valid bet. (within their bank and an integer)
     //MODIFIES: this
     //EFFECTS: asks the user what they would like to bet and places that bet.
-    private void placeBets() {
+    @Override
+    protected void placeBets() {
         while (true) {
             try {
                 playerBet = Integer.parseInt(JOptionPane.showInputDialog("Place your bet!"));
@@ -202,7 +205,8 @@ public class BlackjackGUI extends Blackjack {
 
     //EFFECTS: displays the GUI version of the blackjack table for the
     // user depending on if its the user's turn or the dealer's.
-    private void displayHands(boolean dealerTurn) {
+    @Override
+    protected void displayHands(boolean dealerTurn) {
         if (dealerTurn) {
             dealerCardPanel.remove(1);
             ArrayList<Card> dealerHand = dealer.getHand();
@@ -253,7 +257,8 @@ public class BlackjackGUI extends Blackjack {
 
     //MODIFIES: this
     //EFFECTS: asks the user what they would like to load from a previous game.
-    private void promptLoadGame() {
+    @Override
+    protected void loadPrompt() {
         int load;
         load = JOptionPane.showConfirmDialog(window, "Would you like to load from your previous game?");
         if (load == JOptionPane.YES_OPTION) {
