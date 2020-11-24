@@ -88,7 +88,7 @@ Blackjack without having to load up GTA V and see something that I created!
 - As a user, I want to be able to save my game.
 - As a user, I want to be able to load my save and resume where I left off.
 
-##Phase 4: Task 2
+## Phase 4: Task 2
 - Type hierarchy for BlackjackGUI.java and Blackjack.java(Console version) refactored 
 into and extends abstract class PlayableGame.java
 - Overridden abstract class methods from PlayableGame:
@@ -99,7 +99,7 @@ into and extends abstract class PlayableGame.java
     - placeBets();
     - reset();
     
-##Phase 4: Task 3
+## Phase 4: Task 3
 By looking at the project UML, if I had more time for this project I would:
 - Refactor the Dealer and Player classes into a superclass type hierarchy with both children as Dealer and Player.
 - Refactor enumeration Suit to belong to Card and not BlackjackGUI
