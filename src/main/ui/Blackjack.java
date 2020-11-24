@@ -7,7 +7,7 @@ public class Blackjack extends PlayableGame {
     private Scanner keyboard = new Scanner(System.in);  // keyboard scanner for input
     private String response = "";                       // storage for input
 
-    //EFFECTS: Runs the Blackjack game
+    //EFFECTS: Runs the console version of the Blackjack game
     public Blackjack() {
         super();
         runGame();
