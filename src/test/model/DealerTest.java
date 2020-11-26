@@ -99,7 +99,7 @@ public class DealerTest {
     }
 
     @Test
-    public void swapOneAceButHandTotalNotOver() {
+    public void swapOneAceButHandTotalNotOverTest() {
         //Should not change as the hand total doesn't exceed 21
         assertEquals(test3.handTotal(), 13);
         test3.swapAce();
@@ -107,7 +107,7 @@ public class DealerTest {
     }
 
     @Test
-    public void swapNoAceHandOver() {
+    public void swapNoAceHandOverTest() {
         assertEquals(test.handTotal(), 15);
         test.addGivenCard("J");
         test.swapAce();
@@ -130,5 +130,13 @@ public class DealerTest {
         for (int i = 0; i < hand2.size(); i++) {
             assertEquals(hand.get(i).toString(), hand2.get(i).toString());
         }
+    }
+
+    @Test
+    public void dealWithEmptyHandTest() {
+        Dealer dealer = new Dealer();
+        assertTrue(dealer.getHand().isEmpty());
+        dealer.deal();
+        assertFalse(dealer.getHand().isEmpty());
     }
 }
