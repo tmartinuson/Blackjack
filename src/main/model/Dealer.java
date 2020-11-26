@@ -9,13 +9,9 @@ public class Dealer {
 
     //EFFECTS: creates a new empty hand for the dealer,
     // sets the dealers bust to false,
-    // deals the dealer 2 new cards,
-    // and swaps the ace out in case of 2 aces appearing in a hand.
     public Dealer() {
         hand = new ArrayList<>();
         bust = false;
-        deal();
-        swapAce();
     }
 
     //EFFECTS: creates a designated hand for the dealer,

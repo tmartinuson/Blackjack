@@ -100,12 +100,12 @@ into and extends abstract class PlayableGame.java
     - reset();
     
 ## Phase 4: Task 3
-By looking at the project UML, if I had more time for this project I would:
+By looking at the project UML, if I had more time to refactor in this project I would:
 - Refactor the Dealer and Player classes into a superclass type hierarchy with both children as Dealer and Player.
 - Refactor enumeration Suit to belong to Card and not BlackjackGUI
 - Refactor Card with an enumeration for DECK instead of as a final ArrayList.
 
-However, if I had more time to work on this project I would:
+However, if I had more time to work more on this project I would:
 - Add buttons and Panel to the GUI window for starting a new game, quitting the game.
 - Remove all popup windows.
 - Add fields to the GUI window to place bets, enter name and save game/load game.

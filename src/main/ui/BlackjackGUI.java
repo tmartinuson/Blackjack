@@ -25,6 +25,7 @@ public class BlackjackGUI extends PlayableGame {
     private JLabel playerBankLabel;             // displays the player's bank
     private JLabel playerHandTotal;             // displays the player's hand total
     private JLabel dealerHandTotal;             // displays the dealer's hand total
+    private BackgroundPanel backgroundPanel;    // creates the background wallpaper
 
     //EFFECTS: Runs the BlackjackGUI version of the game.
     public BlackjackGUI() {
@@ -39,8 +40,7 @@ public class BlackjackGUI extends PlayableGame {
     // previous game.
     private void setup() {
         window = new JFrame("Blackjack");
-        // creates the background wallpaper
-        BackgroundPanel backgroundPanel = new BackgroundPanel();
+        backgroundPanel = new BackgroundPanel();
         window.setContentPane(backgroundPanel);
         table.setOpaque(false);
         playerCardPanel.setOpaque(false);
