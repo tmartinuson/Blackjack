@@ -25,6 +25,9 @@ public class BackgroundPanel extends JPanel {
     //EFFECTS: Returns the dimension for the wallpaper size.
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(1750,1250);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = (int)screenSize.getWidth();
+        int height = (int)screenSize.getHeight();
+        return new Dimension(width,height);
     }
 }
